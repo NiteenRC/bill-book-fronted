@@ -1,0 +1,208 @@
+<div class="row">
+  <div class="form-group col-6">
+    <table [dataSource]="dataSource1" mat-table>
+      <ng-container matColumnDef="createdDate">
+        <th *matHeaderCellDef mat-header-cell class="text-left">Bill date</th>
+        <td *matCellDef="let element" mat-cell class="text-left" (click)=getData(element) class="btn-info">
+          {{element.billDate}}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="totalPrice">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Transaction</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
+          {{element.transaction.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dueAmount">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Due Amount</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
+          {{element.dueAmount.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <ng-container matColumnDef="totalProfit">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Profit</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
+          {{element.profit.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <ng-container matColumnDef="dueCollection">
+        <th *matHeaderCellDef mat-header-cell class="text-right">Due Collection</th>
+        <td *matCellDef="let element" mat-cell class="text-right">
+          {{element.dueCollection.toLocaleString('en-IN') || 0}} </td>
+      </ng-container>
+      <tr *matHeaderRowDef="displayedColumns1;  sticky: true" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: displayedColumns1;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="15" showFirstLastButtons></mat-paginator>
+  </div>
+  <div class="col-3">
+    <div style="display: flex;justify-content: center;">
+      <mat-card
+        style="border:2px solid #5999d2;width:260px;border-top: 25px solid #5999d2;background-color: whitesmoke;padding: 0px;">
+
+        <div class="container" style="margin-top:20px">
+          <div class="row">
+            <div class="col-4 " style="padding-left: 0px;padding-right: 0px;">
+              <h3 style="margin-top: 5px" class="example-right-align">2000 X</h3>
+              <h3 style="" class="example-right-align">500 X</h3>
+              <h3 style="margin-top: 0px ;" class="example-right-align">200 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">100 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">50 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">20 X</h3>
+              <h3 style="margin-top: 0px;" class="example-right-align">10 X</h3>
+            </div>
+            <div class="col-4" style="padding-right: 0px;padding-left: 0px;width: 180px;">
+              <form [formGroup]="reactiveForm">
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes2000" maxlength="3">
+                  </mat-form-field>
+                  <span style="margin-left: 21px;font-size:20px">=</span>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes500">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes200">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes100">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes50">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes20">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+                <p class="profitform">
+                  <mat-form-field class="forms-fildes" style="width:40%">
+                    <input matInput type="number" class="example-right-align" (ngModelChange)="calculate()"
+                      formControlName="notesOfNotes10">
+                  </mat-form-field>
+                  <small style="margin-left: 21px;font-size:20px">=</small>
+                </p>
+              </form>
+            </div>
+            <div class="col-4 " style="padding-right: 40px;width: 20px;">
+              <h4 class="example-right-align">{{total}} </h4>
+              <h4 style="margin-top: 24px;" class="example-right-align">{{notesOf500sTotal}} </h4>
+              <h4 style="margin-top: 24px;" class="example-right-align">{{notesOf200sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf100sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf50sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf20sTotal}} </h4>
+              <h4 style="margin-top: 20px;" class="example-right-align">{{notesOf10sTotal}} </h4>
+            </div>
+          </div>
+          <hr style="border-top: 1px solid rgb(89 153 210);margin-top:'0px';margin-bottom:5px;padding:0px">
+          <div style="display: flex;justify-content:space-between">
+            <div>
+              <h3 class="example-right-align">Notes</h3>
+            </div>
+            <div>
+              <h3 class="example-right-align">{{noOfNotes}}</h3>
+            </div>
+            <div>
+              <h3 class="example-right-align">Total <span class="example-right-align">=</span> {{totalNoOfNotesCount}}
+              </h3>
+            </div>
+          </div>
+          <hr style="border-top: 1px solid rgb(89 153 210);margin-top:'0px';margin-bottom:10px">
+        </div>
+
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div style="display: flex;justify-content: center;">
+      <mat-card style="background-color: whitesmoke; border:2px solid #5999d2;;border-top: 25px solid #5999d2;">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div>
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="date" max="3" placeholder="Bill date" [(ngModel)]="dateData" readonly>
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="number" placeholder="Transaction " [(ngModel)]="transaction"
+                      class="example-right-align" readonly>
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="number" placeholder="Due Collection " [(ngModel)]="dueCollection"
+                      class="example-right-align" readonly>
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="number" placeholder="Due Given " [(ngModel)]="dueAmount"
+                      class="example-right-align" readonly>
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput placeholder="Enter Hard Cash " [(ngModel)]="totalNoOfNotesCount"
+                      class="example-right-align" readonly>
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="number" placeholder="UPI payment " [(ngModel)]="upiPayment"
+                      class="example-right-align" readonly>
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="number" placeholder="Enter Expense/Misc" [(ngModel)]="expense"
+                      (ngModelChange)="calculate()" class="example-right-align">
+                  </mat-form-field>
+                </p>
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput type="number" placeholder="Enter Opening Balance " [(ngModel)]="openingBalance"
+                      (ngModelChange)="calculate()" class="example-right-align">
+                  </mat-form-field>
+                </p>
+
+                <p class="profitformCalculation">
+                  <mat-form-field class="forms-fildes" style="width:67%">
+                    <input matInput placeholder="Difference " [(ngModel)]="difference" class="example-right-align"
+                      readonly>
+                  </mat-form-field>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

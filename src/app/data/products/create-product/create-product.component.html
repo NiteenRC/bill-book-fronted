@@ -1,0 +1,78 @@
+<div class="product-conatiner">
+    <div class="title-header" *ngIf="productUpdateData?.id==null">
+        <h4 class="title">Add Product</h4>
+    </div>
+    <div class="title-header" *ngIf="productUpdateData?.id!=null">
+        <h4 class="title">Update Product</h4>
+    </div>
+    <hr>
+    <form [formGroup]="productForm" (submit)="onSubmit()">
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="productName" [matAutocomplete]="productAuto" aria-label="Number" matInput
+                    placeholder="PRODUCT NAME" type="text">
+                <mat-autocomplete #productAuto="matAutocomplete" autoActiveFirstOption>
+                    <mat-option *ngFor="let product of filteredProducts | async" [value]="product.productName">
+                        {{product.productName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+        <!--
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="categoryName" [matAutocomplete]="supplierAuto" aria-label="Number" matInput
+                    placeholder="Category" type="text" required>
+                <mat-autocomplete #supplierAuto="matAutocomplete" autoActiveFirstOption>
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option?.categoryName">
+                        {{option?.categoryName}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>-->
+
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="currentPrice" matInput placeholder="SALE PRICE">
+            </mat-form-field>
+            <br>
+        </div>
+
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="purchasePrice" matInput placeholder="PURCHASE PRICE">
+            </mat-form-field>
+            <br>
+        </div>
+
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="hsnNo" matInput placeholder="HSN/SAC">
+            </mat-form-field>
+            <br>
+        </div>
+
+        <div class="addproduct-container">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="gst" matInput placeholder="GST%">
+            </mat-form-field>
+            <br>
+        </div>
+
+        <div class="button-container">
+            <button type="button" (click)="closeModal()" aria-label="Close" class="btn btn-warning"
+                style="width: 25%;margin-left: 5px;">Cancel
+            </button>
+            <button [disabled]="!singleClickDisable && !productForm.valid" class="btn btn-primary" type="submit"
+                style="width: 25%;margin-left: 5px;border-radius: 10px;">Save
+            </button>
+        </div>
+
+        <div class="button-container">
+            <h4 style="color: green;">{{successMsg}}</h4>
+            <h4 style="color: red;">{{errorMsg}}</h4>
+        </div>
+    </form>
+
+</div>

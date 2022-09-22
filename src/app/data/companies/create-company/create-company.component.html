@@ -1,0 +1,37 @@
+<div class="product-conatiner">
+    <div *ngIf="companyUpdateData?.data.id==null" class="title-header">
+        <h4 class="title">Add Company</h4>
+    </div>
+    <div *ngIf="companyUpdateData?.data.id!=null" class="title-header">
+        <h4 class="title">Update Company</h4>
+    </div>
+    <hr>
+    <form [formGroup]="companyForm" (submit)="onSubmit()">
+        <div class="title-header">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="companyName" matInput placeholder="Company Name" required>
+                <mat-error *ngIf="companyForm.get('companyName').hasError('required')">
+                    First Name required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="title-header">
+            <mat-form-field class="forms-fildes">
+                <input formControlName="phoneNumber" matInput placeholder="Phone Number">
+            </mat-form-field>
+        </div>
+        <div class="button-container">
+            <button type="button" (click)="closeModal()" aria-label="Close" class="btn btn-warning"
+                    style="width: 25%;margin-left: 5px;">Cancel
+            </button>
+            <button [disabled]="!companyForm.valid" class="btn btn-primary"
+                    style="width: 25%;margin-left: 5px;">Save
+            </button>
+        </div>
+        <div class="button-container">
+            <h4 style="color: green;">{{successMsg}}</h4>
+            <h4 style="color: red;">{{errorMsg}}</h4>
+        </div>
+    </form>
+
+</div>

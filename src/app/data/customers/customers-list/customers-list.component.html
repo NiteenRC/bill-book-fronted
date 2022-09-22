@@ -1,0 +1,90 @@
+<div class="inline-center">
+    <mat-form-field style="width: 300px;">
+        <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+        <mat-label>customer name</mat-label>
+        <input #input (keyup)="applyFilter($event)" matInput>
+    </mat-form-field>
+    <div>
+        <button (click)="openDialog()" class="btn btn-info btn-sm" style="height: 35px;width: 100px;"> <b>+</b> Customer
+        </button>
+    </div>
+</div>
+
+<div class="mat-elevation-z8">
+    <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table>
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position customer -->
+        <ng-container matColumnDef="customerName">
+            <th *matHeaderCellDef mat-header-cell>Customer</th>
+            <td *matCellDef="let element" mat-cell> {{element.customerName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="window">
+            <th *matHeaderCellDef mat-header-cell class="text-right-6">Open files</th>
+            <td *matCellDef="let element" mat-cell class="text-right-6">
+                <button (click)="openWindowCustomer(element)" class="btn-info">
+                    <span class="material-icons">folder_open</span>
+            </button> </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="phoneNumber">
+            <th *matHeaderCellDef mat-header-cell> Phone Number</th>
+            <td *matCellDef="let element" mat-cell> {{element.phoneNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+            <th *matHeaderCellDef mat-header-cell> Location</th>
+            <td *matCellDef="let element" mat-cell> {{element.location?.cityName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id">
+            <th *matHeaderCellDef mat-header-cell class="text-right"> Action</th>
+            <td *matCellDef="let element" mat-cell class="text-right">
+
+                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
+                    <mat-icon class="kebab-menu">more_vert</mat-icon>
+                    <!-- <img src="../../assets/ellipse.png" class="home-icon" alt="" width="25px" height="25px"> -->
+                </button>
+                <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
+                    <div>
+                        <button (click)="updateCustomer(element)" class="btn btn-info" style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px">
+                            <div style="display:flex;align-items: center;">
+                                <!-- <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px"> -->
+                                <mat-icon class="edit">edit</mat-icon>
+                                <div style="margin-left: 10px; ">Update </div>
+                            </div>
+                        </button>
+                        <br>
+
+                        <button (click)="deleteCustomer(element)" class="btn btn-danger " style="padding: 0 20px;margin-top:8px;margin-left: 15px;margin-right: 15px;height:40px ">
+                            <div style="display:flex ">
+                                <!-- <img src="../../assets/delete.png " class="home-icon " alt=" " width="25px " height="25px "> -->
+                                <mat-icon>delete</mat-icon>
+                                <div style="margin-left: 5px; ">Delete </div>
+                            </div>
+    
+                    </button>
+                        <br>
+
+                    </div>
+                </mat-menu>
+                <!--  -->
+            </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+            <th *matHeaderCellDef mat-header-cell> Symbol</th>
+            <td *matCellDef="let element" mat-cell> {{element.symbol}} </td>
+        </ng-container>
+
+        <tr *matHeaderRowDef="displayedColumns; sticky: true " mat-header-row></tr>
+        <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[15, 30, 50]" [pageSize]="50" showFirstLastButtons></mat-paginator>
+</div>
+<br>
