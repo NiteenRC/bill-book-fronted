@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
-import {CompanyService} from 'src/app/_services/company.service';
-import {CustomerService} from 'src/app/_services/customer.service';
-import {CreateCustomerComponent} from '../create-customer/create-customer.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { CompanyService } from 'src/app/_services/company.service';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { CreateCustomerComponent } from '../create-customer/create-customer.component';
 
 @Component({
     selector: 'app-customers-list',
@@ -15,6 +15,8 @@ export class CustomersListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     displayedColumns: string[] = ['customerName', 'window', 'phoneNumber', 'location', 'id'];
     dataSource;
+    errorMsg: any;
+    showMsg: boolean = false;
 
     constructor(public dialog: MatDialog, private customerService: CustomerService, private companyService: CompanyService) {
     }
@@ -44,7 +46,7 @@ export class CustomersListComponent implements OnInit {
         const dialogRef = this.dialog.open(CreateCustomerComponent, {
             width: '550px',
             disableClose: true,
-            data: {data: updateCustomer}
+            data: { data: updateCustomer }
         });
 
         dialogRef.afterClosed().subscribe(result => {
@@ -66,7 +68,14 @@ export class CustomersListComponent implements OnInit {
             response => {
                 this.getCustomerList();
             },
-            error => console.log(error));
+            error => {
+                console.log(error);
+                this.showMsg = true;
+                setTimeout(() => {
+                    this.showMsg = false;
+                }, 3000);
+            }
+        );
     }
 
     openWindowCustomer(event): void {
@@ -75,7 +84,7 @@ export class CustomersListComponent implements OnInit {
                 //this.getCustomerList();
             },
             error => console.log(error));
-      }
+    }
 }
 
 

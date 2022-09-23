@@ -12,3 +12,12 @@ th {
     justify-content: space-between;
     align-items: center;
 }
+
+.middle {
+    /* max-width: 300px;
+  margin: auto; */
+    position: fixed;
+    left: 50%;
+    top: 30px;
+    transform: translate(-40%, 0%);
+}

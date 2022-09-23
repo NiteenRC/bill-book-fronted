@@ -1,6 +1,16 @@
+<div class="middle" *ngIf="showMsg">
+    <div class="col-xs-6">
+        <p class="alert alert-success">
+            <strong>Could not delete because this customer used in Sales order!!</strong>
+        </p>
+    </div>
+</div>
+
 <div class="inline-center">
     <mat-form-field style="width: 300px;">
-        <button matSuffix mat-button><mat-icon >search</mat-icon></button>
+        <button matSuffix mat-button>
+            <mat-icon>search</mat-icon>
+        </button>
         <mat-label>customer name</mat-label>
         <input #input (keyup)="applyFilter($event)" matInput>
     </mat-form-field>
@@ -25,9 +35,11 @@
         <ng-container matColumnDef="window">
             <th *matHeaderCellDef mat-header-cell class="text-right-6">Open files</th>
             <td *matCellDef="let element" mat-cell class="text-right-6">
-                <button (click)="openWindowCustomer(element)" class="btn-info">
-                    <span class="material-icons">folder_open</span>
-            </button> </td>
+                <button mat-raised-button color="primary" (click)="openWindowCustomer(element)"
+                    matBadge={{element?.fileCount}} matBadgePosition="before" matBadgeColor="accent">
+                    Open
+                </button>
+            </td>
         </ng-container>
 
         <!-- Name Column -->
@@ -45,13 +57,15 @@
             <th *matHeaderCellDef mat-header-cell class="text-right"> Action</th>
             <td *matCellDef="let element" mat-cell class="text-right">
 
-                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" mat-icon-button>
+                <button class="kebab-menu-btn" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+                    mat-icon-button>
                     <mat-icon class="kebab-menu">more_vert</mat-icon>
                     <!-- <img src="../../assets/ellipse.png" class="home-icon" alt="" width="25px" height="25px"> -->
                 </button>
                 <mat-menu #menu="matMenu" style="background-color: #f7f3f3;">
                     <div>
-                        <button (click)="updateCustomer(element)" class="btn btn-info" style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px">
+                        <button (click)="updateCustomer(element)" class="btn btn-info"
+                            style="padding: 0 20px;margin-left: 15px;margin-right: 15px;height:40px">
                             <div style="display:flex;align-items: center;">
                                 <!-- <img src="../../assets/edit.png " class="home-icon " alt=" " width="18px" height="18px"> -->
                                 <mat-icon class="edit">edit</mat-icon>
@@ -60,16 +74,15 @@
                         </button>
                         <br>
 
-                        <button (click)="deleteCustomer(element)" class="btn btn-danger " style="padding: 0 20px;margin-top:8px;margin-left: 15px;margin-right: 15px;height:40px ">
+                        <button (click)="deleteCustomer(element)" class="btn btn-danger "
+                            style="padding: 0 20px;margin-top:8px;margin-left: 15px;margin-right: 15px;height:40px ">
                             <div style="display:flex ">
                                 <!-- <img src="../../assets/delete.png " class="home-icon " alt=" " width="25px " height="25px "> -->
                                 <mat-icon>delete</mat-icon>
                                 <div style="margin-left: 5px; ">Delete </div>
                             </div>
-    
-                    </button>
+                        </button>
                         <br>
-
                     </div>
                 </mat-menu>
                 <!--  -->

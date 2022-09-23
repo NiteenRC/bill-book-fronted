@@ -50,6 +50,8 @@ export class SalesOrderComponent implements OnInit {
   updatedProductSalePriceList: UpdateProduct[] = [];
   priceChangeHistory: any = {};
 
+  showMsg: boolean = false;
+
   constructor(
     private _fb: FormBuilder,
     private productService: ProductService,
@@ -145,8 +147,6 @@ export class SalesOrderComponent implements OnInit {
       callback("cancel");
     });
   }
-
-  showMsg: boolean = false;
 
   save(isPrintReq: boolean, content: any) {
     this.singleClickDisable = true;
