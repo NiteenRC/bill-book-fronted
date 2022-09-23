@@ -30,13 +30,18 @@
         </ng-container>-->
 
         <ng-container matColumnDef="qty">
-            <th *matHeaderCellDef mat-header-cell class="text-right">Sold Quantity</th>
+            <th *matHeaderCellDef mat-header-cell class="text-right">Quantity</th>
             <td *matCellDef="let element" mat-cell class="text-right"> {{element.qty}} </td>
         </ng-container>
 
         <ng-container matColumnDef="price" *ngIf="super_admin || admin">
             <th *matHeaderCellDef mat-header-cell class="text-right"> Purchase Price</th>
             <td *matCellDef="let element" mat-cell class="text-right"> {{element.purchasePrice | number : '1.0-2'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="profit" *ngIf="super_admin || admin">
+            <th *matHeaderCellDef mat-header-cell class="text-right"> Profit</th>
+            <td *matCellDef="let element" mat-cell class="text-right"> {{element.profit | number : '1.0-2'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="salePrice">

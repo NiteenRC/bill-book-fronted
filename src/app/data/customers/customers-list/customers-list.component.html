@@ -53,6 +53,16 @@
             <td *matCellDef="let element" mat-cell> {{element.location?.cityName}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="advanceAmt">
+            <th *matHeaderCellDef mat-header-cell class="text-left-4">Advance</th>
+            <td *matCellDef="let element" mat-cell class="text-right-4"> {{element.advanceAmt}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="profitAmt">
+            <th *matHeaderCellDef mat-header-cell class="text-left-4">Profit</th>
+            <td *matCellDef="let element" mat-cell class="text-right-4"> {{element.profitAmt}} </td>
+        </ng-container>
+
         <ng-container matColumnDef="id">
             <th *matHeaderCellDef mat-header-cell class="text-right"> Action</th>
             <td *matCellDef="let element" mat-cell class="text-right">

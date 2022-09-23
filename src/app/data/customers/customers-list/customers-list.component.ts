@@ -13,7 +13,7 @@ import { CreateCustomerComponent } from '../create-customer/create-customer.comp
 })
 export class CustomersListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
-    displayedColumns: string[] = ['customerName', 'window', 'phoneNumber', 'location', 'id'];
+    displayedColumns: string[] = ['customerName', 'window', 'phoneNumber', 'location', 'advanceAmt', 'profitAmt', 'id'];
     dataSource;
     errorMsg: any;
     showMsg: boolean = false;

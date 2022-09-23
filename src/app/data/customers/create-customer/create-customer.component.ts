@@ -35,6 +35,7 @@ export class CreateCustomerComponent implements OnInit {
             cityName: new FormControl(null),
             customerName: new FormControl(null, [Validators.required]),
             phoneNumber: new FormControl(null),
+            advanceAmt: new FormControl(null),
         });
 
         this.locationForm = new FormGroup({
@@ -46,6 +47,7 @@ export class CreateCustomerComponent implements OnInit {
             this.customerForm.controls['customerName'].setValue(this.customerUpdateData.customerName);
             this.customerForm.controls['phoneNumber'].setValue(this.customerUpdateData.phoneNumber);
             this.customerForm.controls['cityName'].setValue(this.customerUpdateData.location === null ? '' : this.customerUpdateData.location.cityName);
+            this.customerForm.controls['advanceAmt'].setValue(this.customerUpdateData.advanceAmt);
         }
     }
 
@@ -79,6 +81,7 @@ export class CreateCustomerComponent implements OnInit {
             customerName: this.customerForm.controls.customerName.value,
             location,
             phoneNumber: this.customerForm.controls.phoneNumber.value,
+            advanceAmt: this.customerForm.controls.advanceAmt.value,
         };
 
         this.customerService.createCustomer(data).subscribe(res => {
@@ -106,6 +109,7 @@ export class CreateCustomerComponent implements OnInit {
             customerName: this.customerForm.controls.customerName.value,
             location,
             phoneNumber: this.customerForm.controls.phoneNumber.value,
+            advanceAmt: this.customerForm.controls.advanceAmt.value,
         };
 
         this.customerService.updateCustomer(data).subscribe(res => {
