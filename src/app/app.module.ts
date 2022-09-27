@@ -46,6 +46,7 @@ import { SalesOrderComponent } from './sales/salesoder/sales-order.component';
 import { BalanceSheetComponent } from './sales/customer-balance-sheet/list-customer-balance-sheet/balance-sheet.component';
 import { SubscriptionComponent } from './subscription/register/subscription.component';
 import { CustomerReportDetailsComponent } from './sales/customer-report-details/customer-report-details.component';
+import { ProductSummaryComponent } from './reports/product-summary/product-summary.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { CustomerReportDetailsComponent } from './sales/customer-report-details/
     SalesReportDetailsComponent,
     UpdateBankInfoComponent,
     CustomerReportDetailsComponent,
-    SubscriptionComponent
+    SubscriptionComponent,
+    ProductSummaryComponent
   ],
   imports: [
     TableModule,

@@ -81,6 +81,9 @@ export class ActionBarComponent implements OnInit{
     if (item === "Daily Summary") {
       this._redirectToPage('dashboard/profit-summary');
     }
+    if (item === "Product Summary") {
+      this._redirectToPage('dashboard/product-summary');
+    }
   }
 
   getSetting(item) {
@@ -143,6 +146,9 @@ const SUMMARY: MasterNode[] = [
     children: [
       {
         name: 'Daily Summary',
+      },
+      {
+        name: 'Product Summary',
       }
     ]
   },
