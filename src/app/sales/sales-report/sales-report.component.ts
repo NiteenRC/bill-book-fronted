@@ -20,8 +20,12 @@ export class SalesReportComponent implements OnInit {
   productColumns: string[] = ['id', 'productName', 'salesPrice', 'qtyOrdered'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   dataSource: any;
-
   searchText: string;
+
+  totalElements: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 15;
+  request = { page: this.currentPage, size: this.pageSize };
 
   range = new FormGroup({
     start: new FormControl(),
@@ -33,7 +37,7 @@ export class SalesReportComponent implements OnInit {
   constructor(public dialog: MatDialog, private salesOrderService: SalesOrderService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getSalesOrderList();
+    this.getSalesOrderList(this.request);
     this.range.valueChanges.subscribe(dateRange => {
       if (this.range.valid) {
         this.searchData();
@@ -41,12 +45,31 @@ export class SalesReportComponent implements OnInit {
     })
   }
 
-  getSalesOrderList(): void {
-    this.salesOrderService.getSalesOrderList().subscribe(res => {
-      this.salesReports = res;
-      this._setData(res);
-    }, error => console.log(error));
-  }
+  getSalesOrderList(request): void {
+      this.salesReports = [];
+      this.salesOrderService.getSalesOrderList(request).subscribe(res => {
+        this.salesReports = res['content'];
+        this.totalElements = res['totalElements'];
+        this._setData(res['content']);
+
+        setTimeout(() => {
+          this.paginator.pageIndex = this.currentPage;
+          this.paginator.length = res.totalElements;
+        });
+      }, error => console.log(error));
+    }
+
+    nextPage(event: PageEvent) {
+      const request = {};
+      request['page'] = event.pageIndex.toString();
+      request['size'] = event.pageSize.toString();
+
+      this.currentPage = event.pageIndex;
+      this.pageSize = event.pageSize;
+
+      this.getSalesOrderList(request);
+      return event;
+    }
 
   clearCustomerSearch() {
     this.searchText = '';
@@ -60,7 +83,24 @@ export class SalesReportComponent implements OnInit {
   searchData() {
     const searchText = this.searchText;
     const { start, end } = this.range.value || {};
-    let filteredData = this.salesReports;
+
+    let filteredData = null;
+
+        if (searchText.length === 0) {
+          this.currentPage = 0
+          this.searchText = null;
+        }
+
+        filteredData = this.salesOrderService.getSalesOrderByCustomerName({ customerName: this.searchText, page: this.currentPage, size: this.pageSize }).subscribe(res => {
+          this.salesReports = res['content'];
+          this.totalElements = res['totalElements'];
+          this._setData(res['content']);
+
+          setTimeout(() => {
+            this.paginator.pageIndex = this.currentPage;
+            this.paginator.length = res.totalElements;
+          });
+        }, error => console.log(error));
 
     if (start && end) {
       const startTime = start.getTime();
@@ -86,7 +126,7 @@ export class SalesReportComponent implements OnInit {
   deleteSalesOrder(event) {
     this.salesOrderService.deleteSalesOrder(event.salesOrderID).subscribe(
       response => {
-        this.getSalesOrderList();
+        this.getSalesOrderList(this.request);
       },
       error => console.log(error));
   }
@@ -129,7 +169,7 @@ export class SalesReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getSalesOrderList();
+      this.getSalesOrderList(this.request);
     });
   }
 
@@ -142,7 +182,7 @@ export class SalesReportComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      this.getSalesOrderList();
+      this.getSalesOrderList(this.request);
     });
   }
 
